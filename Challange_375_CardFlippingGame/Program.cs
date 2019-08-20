@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Challange_375_CardFlippingGame
 {
@@ -6,17 +7,35 @@ namespace Challange_375_CardFlippingGame
     {
         static void Main(string[] args)
         {
-
-        }
-
-        public string getCardLayout()
-        {
-            string cardLayout;
-
+            Card Card = new Card();
+            string cards;
             Console.WriteLine("please enter your cards");
-            cardLayout = Console.ReadLine();
+            cards = Console.ReadLine();
+            if (Card.checkIfCardsAreValid(cards))
+            {
+                Task<bool> canGameBeWon = Card.CanGameBeWonAsync(cards);
+                canGameBeWon.Wait();
+                if (canGameBeWon.Result)
+                {
+                    Console.WriteLine("Game has a Solution");
+                }
+                else
+                {
+                    Console.WriteLine("Game has no Solution");
+                }
 
-            return cardLayout;
+            }
+            else
+            {
+                Console.WriteLine("bad Data");
+            }
+            
+           
+            
+
+           
         }
+
+        
     }
 }
